@@ -1,0 +1,34 @@
+@use "../styles/sass/variables" as v;
+
+.sidebar {
+  background-color: v.$gray2;
+  height: 100vh;
+  min-width: 160px;
+  max-height: 100vh;
+  padding: 4rem 0;
+  position: relative;
+
+  .logoCave {
+    width: 100px;
+    margin: 0 auto;
+  }
+  .linkContainer {
+    height: 139px;
+
+    .link {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100%;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 2rem;
+      color: white;
+
+      &:hover{
+        background-color: v.$gray1;
+      }
+    }
+  }
+}

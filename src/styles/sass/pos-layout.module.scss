@@ -1,0 +1,14 @@
+@use "./variables" as v;
+
+.container {
+  display: flex;
+  background-color: v.$gray1;
+  align-items: flex-start;
+}
+
+.main {
+  overflow: scroll;
+  max-height: 100vh;
+  height: 100vh;
+  width: 100%;
+}
