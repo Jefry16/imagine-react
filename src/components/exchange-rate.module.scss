@@ -1,0 +1,45 @@
+@use "../styles//sass/variables" as v;
+
+.exchangeRate {
+  width: 36rem;
+  height: 13rem;
+  background-color: v.$gray2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 82px;
+
+  .column {
+    width: 96px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .iconPlusCode {
+    display: flex;
+    font-size: 24px;
+    justify-content: space-around;
+    align-items: center;
+    color: #fff;
+    gap: 12px;
+  }
+
+  .inputRead {
+    div {
+      display: block;
+      width: 96px;
+      height: 40px;
+      background-color: v.$gray4;
+      border: none;
+      outline: none;
+      cursor: not-allowed;
+      color: #fff;
+      font-size: 24px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}

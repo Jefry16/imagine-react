@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+*:before,
+*:after,
+* {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-size: 1.6rem;
+  line-height: 1.8;
+  background-color: #ffffff;
+  font-family: "Roboto", sans-serif;
+}
+
+.page-title {
+  color: #fff;
+}
+
+.ant-form-item-required::before {
+  content: "" !important;
+}
+
+.ant-upload-list-item-name {
+  color: #fff;
+}
+
+.ant-checkbox-group {
+  span {
+    color: white;
+  }
+}
+
+.ant-input-number-input {
+  color: white !important;
+}
+
+.ant-select-selector {
+  background-color: #4f515a !important;
+  border: none !important;
+}
+.ant-select-selection-item {
+  color: white !important;
+}
+
+.ant-select-arrow{
+  color: white !important;
+}

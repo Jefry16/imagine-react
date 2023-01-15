@@ -1,0 +1,19 @@
+@use "../styles/sass/variables" as v;
+
+.sidebar {
+  background-color: v.$gray2;
+  height: 100vh;
+  min-width: 280px;
+  max-height: 100vh;
+  padding:  4rem 0;
+  position: relative;
+
+  .logoCave {
+    padding-left: 4rem;
+  }
+  .logoImagine {
+    position: absolute;
+    bottom: 4rem;
+    padding: 0 4rem;
+  }
+}
