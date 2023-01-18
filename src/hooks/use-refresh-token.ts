@@ -10,9 +10,9 @@ export default function useRefreshToken() {
         {},
         { withCredentials: true }
       );
-      const { accessToken, id, username } = response.data;
-      updateAuth(accessToken, username, id);
-      return { accessToken, id, username };
+      const { accessToken, id, username, roles } = response.data;
+      updateAuth(accessToken, username, id, roles);
+      return { accessToken, id, username, roles };
     } catch (error) {
       clearAuth();
     }

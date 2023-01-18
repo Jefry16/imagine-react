@@ -15,11 +15,13 @@ import PosLayout from "../layouts/pos";
 import Products from "../pages/pos/products";
 import OpenBar from "../pages/pos/open-bar";
 import RequireAuth from "../components/require-auth";
+import NoAuth from "../pages/no-auth";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/login" element={<Login />} />
+      <Route path="/no-autorizado" element={<NoAuth />} />
 
       <Route element={<RequireAuth roles={["camarero"]} />}>
         <Route path="/admin" element={<AdminLayout />}>
