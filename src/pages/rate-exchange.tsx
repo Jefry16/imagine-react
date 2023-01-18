@@ -3,8 +3,12 @@ import styles from "../styles/pages/exchange-rate.module.scss";
 import { useFetch, usePatchtHttp } from "../hooks/http";
 import { Button, notification } from "antd";
 import { useState } from "react";
+import useRefreshToken from "../hooks/use-refresh-token";
+import useAuth from "../hooks/use-auth";
 
 export default function RateExchange() {
+  const { auth } = useAuth();
+  const refresh = useRefreshToken();
   const [values, setValues] = useState({});
   const [showActionButton, setShowActionButton] = useState(false);
   const [api, contextHolder] = notification.useNotification();
@@ -18,7 +22,6 @@ export default function RateExchange() {
   const handleChange = (id: number, value: number) => {
     setValues({ ...values, [id]: value });
     setShowActionButton(true);
-    // mutate();
   };
 
   return (
