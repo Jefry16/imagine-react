@@ -29,18 +29,14 @@ export default function SubCategories() {
           </div>
         }
       />
-      <CustomTable
-        url="subcategories"
-        columns={columns}
-        refetch={refetch}
-        
-      />
+      <CustomTable url="subcategories" columns={columns} refetch={refetch} />
       <FormOverlay
         open={addSubCategory}
         title="Añadir sub-categoría"
         onClose={() => setAddSubCategory(false)}
       >
         <NewSubCategory
+          activeCategory=""
           api={api}
           onClose={() => setAddSubCategory(false)}
           setRefetch={newSubCategoryAdded}

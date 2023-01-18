@@ -4,11 +4,17 @@ export interface IAuth {
   accessToken: string;
   username: string;
   id: number;
+  roles: string[];
 }
 
 export type AuthContextType = {
   auth: IAuth | null;
-  updateAuth: (accessToken: string, username: string, id: number) => void;
+  updateAuth: (
+    accessToken: string,
+    username: string,
+    id: number,
+    roles: string[]
+  ) => void;
   clearAuth: () => void;
 };
 export const AuthContext = createContext<AuthContextType>({
@@ -20,8 +26,13 @@ export const AuthContext = createContext<AuthContextType>({
 export default function AuthProvider(props: { children: ReactNode }) {
   const [auth, setAuth] = useState<IAuth | null>(null);
 
-  function updateAuth(accessToken: string, username: string, id: number) {
-    setAuth({ accessToken, username, id });
+  function updateAuth(
+    accessToken: string,
+    username: string,
+    id: number,
+    roles: string[]
+  ) {
+    setAuth({ accessToken, username, id, roles });
   }
 
   function clearAuth() {

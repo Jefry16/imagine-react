@@ -41,6 +41,13 @@ export default function NewSubCategory(props: {
             rules={[
               { required: true, message: "Añada un nombre" },
               { max: 255, message: "El nombre es muy largo" },
+              {
+                validator(_, value) {
+                  if (value.includes(",")) return Promise.reject();
+                  return Promise.resolve();
+                },
+                message: "El nombre no puede contener comas",
+              },
             ]}
           >
             <Input

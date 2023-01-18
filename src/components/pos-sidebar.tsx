@@ -21,7 +21,7 @@ export default function PosSidebar() {
           </NavLink>
         </li>
         <li className={styles.linkContainer}>
-          <NavLink className={styles.link} to="/punto-de-venta/productos">
+          <NavLink className={styles.link} to="/punto-de-venta/open-bar">
             <img src={OpenBarIcon} />
             <span>OPEN BAR</span>
           </NavLink>

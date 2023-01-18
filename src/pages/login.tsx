@@ -6,25 +6,35 @@ import pplImg from "../assets/login-ppl.png";
 import Cavelogo from "../assets/cave-logo.svg";
 import { usePostHttp } from "../hooks/http";
 import { useState } from "react";
-import { AxiosResponse, AxiosResponseHeaders } from "axios";
+import useAuth from "../hooks/use-auth";
+import { useLocation, useNavigate } from "react-router-dom";
 const { Item } = Form;
 export default function Login() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const { updateAuth } = useAuth();
   const [api, contextHolder] = notification.useNotification();
-
   const [credentials, setCredentials] = useState<{
     username: string;
     password: string;
   }>({ username: "", password: "" });
-  const { mutate, isLoading, data } = usePostHttp(
+  const { mutate, isLoading } = usePostHttp(
     "auth/login",
     credentials,
     {},
     {
       onError: (x: any) => {
-        if (x.response.status === 401) {
+        console.log(x.request.status);
+        if (x.request.status === 0) {
+          api.error({ message: "Inicio de sesion fallido" });
+        } else if (x.response.status === 401) {
           api.error({ message: "Credenciales incorrectas" });
         }
-        console.log();
+      },
+      onSuccess: async ({ data }: any) => {
+        updateAuth(data.accessToken, data.username, data.id, data.roles);
+        setTimeout(() => navigate(from, { replace: true }), 0);
       },
     }
   );
