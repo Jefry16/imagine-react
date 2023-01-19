@@ -4,6 +4,7 @@ import { axiosPrivate } from "../api/axios";
 const useHttpPost = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [status, setStatus] = useState<number | null>(null);
 
   const sendRequest = useCallback(
     async (options: { url: string; data: any }, applyData: Function) => {
@@ -11,6 +12,7 @@ const useHttpPost = () => {
       setError(null);
       try {
         const response = await axiosPrivate.patch(options.url, options.data);
+        setStatus(response.status);
         applyData(response.data);
       } catch (err: any) {
         setError(err.message || "Something went wrong!");
@@ -24,6 +26,7 @@ const useHttpPost = () => {
     isLoading,
     error,
     sendRequest,
+    status,
   };
 };
 

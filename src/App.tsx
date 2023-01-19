@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { RouterProvider } from "react-router-dom";
-import AuthProvider from "./providers/auth-provider";
+import { AuthProvider } from "./providers/auth-provider";
 import router from "./routes";
 
 function App() {

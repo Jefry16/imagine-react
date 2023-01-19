@@ -4,97 +4,52 @@ import inputStyle from "../styles/components/input";
 import Imaginelogo from "../assets/imagine-logo.svg";
 import pplImg from "../assets/login-ppl.png";
 import Cavelogo from "../assets/cave-logo.svg";
-import { usePostHttp } from "../hooks/http";
-import { useState } from "react";
-import useAuth from "../hooks/use-auth";
 import { useLocation, useNavigate } from "react-router-dom";
+import styles from "../styles/pages/login.module.scss";
+import submitButtonStyle from "../styles/components/submit-button";
+import useHttpPost from "../hooks/use-http-post";
+import useAuth from "../hooks/use-auth";
 const { Item } = Form;
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
-  const { updateAuth } = useAuth();
   const [api, contextHolder] = notification.useNotification();
-  const [credentials, setCredentials] = useState<{
-    username: string;
-    password: string;
-  }>({ username: "", password: "" });
-  const { mutate, isLoading } = usePostHttp(
-    "auth/login",
-    credentials,
-    {},
-    {
-      onError: (x: any) => {
-        console.log(x.request.status);
-        if (x.request.status === 0) {
-          api.error({ message: "Inicio de sesion fallido" });
-        } else if (x.response.status === 401) {
-          api.error({ message: "Credenciales incorrectas" });
-        }
-      },
-      onSuccess: async ({ data }: any) => {
-        updateAuth(data.accessToken, data.username, data.roles);
-        setTimeout(() => navigate(from, { replace: true }), 0);
-      },
-    }
-  );
+
+  const { error, isLoading, sendRequest, status } = useHttpPost();
+  const { setAuth } = useAuth();
+
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        maxHeight: "100vh",
-        padding: 0,
-      }}
-    >
+    <div className={styles.container}>
       {contextHolder}
-      <div
-        style={{
-          position: "relative",
-          height: "100%",
-          padding: 0,
-          width: "100%",
-        }}
-      >
-        <img
-          style={{ position: "absolute", top: "68px", left: "68px" }}
-          src={Imaginelogo}
-        />
-        <img
-          style={{
-            display: "block",
-            width: "100%",
-            height: "100%",
-            background: "#161819",
-            objectFit: "cover",
-          }}
-          src={pplImg}
-        />
+      <div className={styles.top}>
+        <img className={styles.logo} src={Imaginelogo} />
+        <img className={styles.ppl} src={pplImg} />
       </div>
-      <div
-        style={{ background: "#161819", minHeight: "100vh", width: "499px" }}
-      >
-        <Row
-          style={{
-            maxWidth: "300px",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        >
-          <Col span={24} style={{ display: "flex", flexDirection: "column" }}>
-            <img
-              src={Cavelogo}
-              style={{ width: "101px", margin: "138px auto 80px" }}
-            />
-            <h1 style={{ color: "white", marginBottom: "40px" }}>
-              Iniciar sesión
-            </h1>
+      <div className={styles.outter}>
+        <Row className={styles.row}>
+          <Col span={24} className={styles.col}>
+            <img src={Cavelogo} className={styles.caveLogo} />
+            <h1 className={styles.title}>Iniciar sesión</h1>
             <Form
-              onFinish={() => {
-                mutate();
+              onFinish={(data) => {
+                console.log(data);
+                sendRequest(
+                  { url: "/auth/login", data },
+                  (response: {
+                    accessToken: string;
+                    username: string;
+                    roles: string[];
+                  }) => {
+                    const { accessToken, username, roles } = response;
+                    setAuth((prev: any) => ({
+                      ...prev,
+                      accessToken,
+                      roles,
+                      username,
+                    }));
+                  }
+                );
               }}
             >
               <Item
@@ -111,16 +66,7 @@ export default function Login() {
                   <label style={{ ...labelStyle }}>Nombre de usuario</label>
                 }
               >
-                <Input
-                  onChange={({ target }) => {
-                    target.value;
-                    setCredentials((prev) => ({
-                      ...prev,
-                      username: target.value,
-                    }));
-                  }}
-                  style={{ ...inputStyle }}
-                />
+                <Input autoComplete="off" style={{ ...inputStyle }} />
               </Item>
               <Item
                 labelCol={{ span: 24 }}
@@ -134,25 +80,12 @@ export default function Login() {
                   },
                 ]}
               >
-                <Input
-                  onChange={({ target }) => {
-                    setCredentials((prev) => ({
-                      ...prev,
-                      password: target.value,
-                    }));
-                  }}
-                  type="password"
-                  style={{ ...inputStyle }}
-                />
+                <Input type="password" style={{ ...inputStyle }} />
               </Item>
               <Item>
                 <Button
                   loading={isLoading}
-                  style={{
-                    borderRadius: "unset",
-                    fontWeight: "bold",
-                    background: "#ff82a8",
-                  }}
+                  style={submitButtonStyle}
                   type="primary"
                   children="Entrar"
                   htmlType="submit"
