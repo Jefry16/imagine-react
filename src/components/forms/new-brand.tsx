@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useFetch, usePostHttp } from "../../hooks/http";
 import inputStyle from "../../styles/components/input";
 import labelStyle from "../../styles/components/label";
+import cancelButtonStyles from "../../styles/components/cancel-button";
+import submitButtonStyle from "../../styles/components/submit-button";
 
 const { Item } = Form;
 
@@ -75,20 +77,13 @@ export default function NewBrand(props: {
             style={{ display: "flex", justifyContent: "flex-end", gap: "20px" }}
           >
             <Button
-              style={{
-                borderRadius: "unset",
-                fontWeight: "bold",
-              }}
+              style={cancelButtonStyles}
               children="Cancelar"
               onClick={() => props.onClose()}
               htmlType="button"
             />
             <Button
-              style={{
-                borderRadius: "unset",
-                fontWeight: "bold",
-                background: "#ff82a8",
-              }}
+              style={submitButtonStyle}
               loading={isLoading}
               type="primary"
               children="Guardar"

@@ -2,8 +2,10 @@ import { Col, Row, Form, Button, Input } from "antd";
 import { NotificationInstance } from "antd/es/notification/interface";
 import { useState } from "react";
 import { usePatchtHttp, usePostHttp } from "../../hooks/http";
+import cancelButtonStyles from "../../styles/components/cancel-button";
 import inputStyle from "../../styles/components/input";
 import labelStyle from "../../styles/components/label";
+import submitButtonStyle from "../../styles/components/submit-button";
 
 const { Item } = Form;
 
@@ -61,20 +63,13 @@ export default function NewSubCategory(props: {
             style={{ display: "flex", justifyContent: "flex-end", gap: "20px" }}
           >
             <Button
-              style={{
-                borderRadius: "unset",
-                fontWeight: "bold",
-              }}
+              style={cancelButtonStyles}
               children="Cancelar"
               onClick={() => props.onClose()}
               htmlType="button"
             />
             <Button
-              style={{
-                borderRadius: "unset",
-                fontWeight: "bold",
-                background: "#ff82a8",
-              }}
+              style={submitButtonStyle}
               type="primary"
               children="Guardar"
               htmlType="submit"

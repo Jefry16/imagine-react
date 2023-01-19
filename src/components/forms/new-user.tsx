@@ -2,8 +2,10 @@ import { UploadOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Col, Form, Input, Row, Upload } from "antd";
 import { useState } from "react";
 import { useFetch, usePostHttp } from "../../hooks/http";
+import cancelButtonStyles from "../../styles/components/cancel-button";
 import inputStyle from "../../styles/components/input";
 import labelStyle from "../../styles/components/label";
+import submitButtonStyle from "../../styles/components/submit-button";
 import style from "./new-user.module.scss";
 const { Item } = Form;
 export default function NewUser(props: {
@@ -156,20 +158,13 @@ export default function NewUser(props: {
             style={{ display: "flex", justifyContent: "flex-end", gap: "20px" }}
           >
             <Button
-              style={{
-                borderRadius: "unset",
-                fontWeight: "bold",
-              }}
+              style={cancelButtonStyles}
               children="Cancelar"
               onClick={() => props.onClose()}
               htmlType="button"
             />
             <Button
-              style={{
-                borderRadius: "unset",
-                fontWeight: "bold",
-                background: "#ff82a8",
-              }}
+              style={submitButtonStyle}
               loading={isLoading}
               type="primary"
               children="Guardar"
