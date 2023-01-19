@@ -24,14 +24,7 @@ export default function UsersPage() {
       >
         <NewUser setRefetch={newUserAdded} onClose={() => setAddUser(false)} />
       </FormOverlay>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "4rem 6rem",
-        }}
-      >
+      <div className="page-title-container">
         <h1 className="page-title">Usuarios</h1>
         <Button
           onClick={() => setAddUser(true)}

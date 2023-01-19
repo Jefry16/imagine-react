@@ -7,14 +7,7 @@ import Sizes from "../components/sizes";
 export default function ConsumablePage() {
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "4rem 6rem",
-        }}
-      >
+      <div className="page-title-container">
         <h1 className="page-title">Productos</h1>
       </div>
       <div

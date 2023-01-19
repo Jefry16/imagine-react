@@ -27,14 +27,7 @@ export default function RateExchange() {
   return (
     <div>
       {contextHolder}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "4rem 6rem",
-        }}
-      >
+      <div className="page-title-container">
         <h1 className="page-title">Tasa de cambio</h1>
       </div>
       <div className={styles.currencies}>
