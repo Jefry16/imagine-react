@@ -10,9 +10,9 @@ export default function useRefreshToken() {
         {},
         { withCredentials: true }
       );
-      const { accessToken, id, username, roles } = response.data;
-       updateAuth(accessToken, username, id, roles);
-      return { accessToken, id, username, roles };
+      const { accessToken, username, roles } = response.data;
+      updateAuth(accessToken, username, roles);
+      return accessToken;
     } catch (error) {
       clearAuth();
     }
@@ -20,3 +20,6 @@ export default function useRefreshToken() {
 
   return refresh;
 }
+
+
+

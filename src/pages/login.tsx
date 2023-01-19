@@ -33,7 +33,7 @@ export default function Login() {
         }
       },
       onSuccess: async ({ data }: any) => {
-        updateAuth(data.accessToken, data.username, data.id, data.roles);
+        updateAuth(data.accessToken, data.username, data.roles);
         setTimeout(() => navigate(from, { replace: true }), 0);
       },
     }

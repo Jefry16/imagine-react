@@ -23,11 +23,13 @@ export default function useAxiosPrivate() {
         const previousRequest = error?.config;
         if (error?.response?.status === 403 && !previousRequest?.sent) {
           previousRequest.sent = true;
-          const { accessToken } = await refresh();
+          const { accessToken } = (await refresh()) as {
+            accessToken: string;
+          };
           previousRequest.headers["Authorization"] = `Bearer ${accessToken}`;
           return axiosPrivate(previousRequest);
         }
-        
+
         return Promise.reject(error);
       }
     );

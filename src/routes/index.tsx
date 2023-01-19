@@ -16,14 +16,14 @@ import Products from "../pages/pos/products";
 import OpenBar from "../pages/pos/open-bar";
 import RequireAuth from "../components/require-auth";
 import NoAuth from "../pages/no-auth";
+import PersistLogin from "../components/persist-login";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/login" element={<Login />} />
       <Route path="/no-autorizado" element={<NoAuth />} />
-
-      <Route element={<RequireAuth roles={["camarero"]} />}>
+      {/* <Route element={<RequireAuth roles={["camarero"]} />}> */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="usuarios" element={<UsersPage />} />
           <Route path="open-bar" element={<OpenBarPage />} />
@@ -37,7 +37,7 @@ const router = createBrowserRouter(
           <Route path="open-bar" element={<OpenBar />}></Route>
         </Route>
       </Route>
-    </Route>
+    // </Route>
   )
 );
 
