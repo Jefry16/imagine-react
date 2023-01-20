@@ -5,15 +5,18 @@ export default function useRefreshToken() {
   const { setAuth } = useAuth();
 
   const refresh = async () => {
-    const response = await axios.post(
-      "auth/refresh-token",
-      {},
-      { withCredentials: true }
-    );
-
-    const { accessToken, username, roles } = response.data;
-    setAuth({ accessToken, roles, username });
-    return accessToken;
+    try {
+      const response = await axios.post(
+        "auth/refresh-token",
+        {},
+        { withCredentials: true }
+      );
+      const { accessToken, username, roles } = response.data;
+      setAuth({ accessToken, roles, username });
+      return accessToken;
+    } catch (error) {
+      setAuth(null);
+    }
   };
   return refresh;
 }
