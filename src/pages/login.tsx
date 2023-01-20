@@ -7,17 +7,12 @@ import Cavelogo from "../assets/cave-logo.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import styles from "../styles/pages/login.module.scss";
 import submitButtonStyle from "../styles/components/submit-button";
-import useHttpPost from "../hooks/use-http-post";
-import useAuth from "../hooks/use-auth";
 const { Item } = Form;
 export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const [api, contextHolder] = notification.useNotification();
-
-  const { error, isLoading, sendRequest, status } = useHttpPost();
-  const { setAuth } = useAuth();
 
   return (
     <div className={styles.container}>
@@ -34,22 +29,6 @@ export default function Login() {
             <Form
               onFinish={(data) => {
                 console.log(data);
-                sendRequest(
-                  { url: "/auth/login", data },
-                  (response: {
-                    accessToken: string;
-                    username: string;
-                    roles: string[];
-                  }) => {
-                    const { accessToken, username, roles } = response;
-                    setAuth((prev: any) => ({
-                      ...prev,
-                      accessToken,
-                      roles,
-                      username,
-                    }));
-                  }
-                );
               }}
             >
               <Item
@@ -84,7 +63,6 @@ export default function Login() {
               </Item>
               <Item>
                 <Button
-                  loading={isLoading}
                   style={submitButtonStyle}
                   type="primary"
                   children="Entrar"

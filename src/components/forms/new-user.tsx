@@ -1,7 +1,6 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Col, Form, Input, Row, Upload } from "antd";
 import { useState } from "react";
-import { useFetch, usePostHttp } from "../../hooks/http";
 import cancelButtonStyles from "../../styles/components/cancel-button";
 import inputStyle from "../../styles/components/input";
 import labelStyle from "../../styles/components/label";
@@ -13,23 +12,9 @@ export default function NewUser(props: {
   setRefetch: Function;
 }) {
   const [userSearch, setUserSearch] = useState("qwertyuiop");
-  const { status } = useFetch(`users?username=${userSearch}`, {
-    retry: false,
-  });
 
   const [_, setFormValues] = useState({});
   const [formData, setFormData] = useState({});
-  const { mutate, isLoading } = usePostHttp(
-    "users",
-    formData,
-    {},
-    {
-      onSuccess: () => {
-        props.onClose();
-        props.setRefetch();
-      },
-    }
-  );
 
   return (
     <Form
@@ -48,9 +33,7 @@ export default function NewUser(props: {
           return updatedFormValues;
         });
       }}
-      onFinish={async () => {
-        mutate();
-      }}
+      onFinish={async () => {}}
     >
       <Row>
         <Col span={24}>
@@ -165,7 +148,6 @@ export default function NewUser(props: {
             />
             <Button
               style={submitButtonStyle}
-              loading={isLoading}
               type="primary"
               children="Guardar"
               htmlType="submit"

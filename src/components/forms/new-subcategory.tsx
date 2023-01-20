@@ -1,7 +1,6 @@
 import { Col, Row, Form, Button, Input } from "antd";
 import { NotificationInstance } from "antd/es/notification/interface";
 import { useState } from "react";
-import { usePatchtHttp, usePostHttp } from "../../hooks/http";
 import cancelButtonStyles from "../../styles/components/cancel-button";
 import inputStyle from "../../styles/components/input";
 import labelStyle from "../../styles/components/label";
@@ -16,23 +15,9 @@ export default function NewSubCategory(props: {
   activeCategory: string;
 }) {
   const [formData, setFormData] = useState({ subCategory: "" });
-  const { mutate } = usePatchtHttp(
-    `categories/${props.activeCategory}`,
-    formData,
-    {
-      onSuccess: () => {
-        props.onClose();
-        props.setRefetch();
-      },
-    }
-  );
 
   return (
-    <Form
-      onFinish={async (value) => {
-        mutate();
-      }}
-    >
+    <Form onFinish={async (value) => {}}>
       <Row>
         <Col span={24}>
           <Item

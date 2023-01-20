@@ -1,7 +1,6 @@
 import { Col, Row, Form, Button, Input } from "antd";
 import { NotificationInstance } from "antd/es/notification/interface";
 import { useState } from "react";
-import { useFetch, usePostHttp } from "../../hooks/http";
 import cancelButtonStyles from "../../styles/components/cancel-button";
 import inputStyle from "../../styles/components/input";
 import labelStyle from "../../styles/components/label";
@@ -16,33 +15,9 @@ export default function NewSize(props: {
 }) {
   const [brandSearch, setBrandSearch] = useState("qwertyuiop");
   const [formData, setFormData] = useState({});
-  const { status } = useFetch(`sizes?name=${brandSearch}`, {
-    retry: false,
-  });
-  const { isLoading, mutate } = usePostHttp(
-    "sizes",
-    formData,
-    {},
-    {
-      onSuccess: () => {
-        props.onClose();
-        props.setRefetch();
-      },
-      onError: (x: any) => {
-        if (x.response.status === 400 || x.response.status === 500) {
-          props.api.error({ message: "Algo salio mal" });
-          props.onClose();
-        }
-      },
-    }
-  );
 
   return (
-    <Form
-      onFinish={async () => {
-        mutate();
-      }}
-    >
+    <Form onFinish={async () => {}}>
       <Row>
         <Col span={24}>
           <Item
@@ -83,7 +58,6 @@ export default function NewSize(props: {
             />
             <Button
               style={submitButtonStyle}
-              loading={isLoading}
               type="primary"
               children="Guardar"
               htmlType="submit"

@@ -5,9 +5,9 @@ export default function RequireAuth(props: { roles: string[] }) {
   const { auth } = useAuth();
   const location = useLocation();
 
-  return auth?.roles.find((roles: string) => props.roles.includes(roles)) ? (
+  return auth?.roles.find((role: string) => props.roles.includes(role)) ? (
     <Outlet />
-  ) : auth?.id ? (
+  ) : auth?.username ? (
     <Navigate to="/no-autorizado" state={{ from: location }} replace />
   ) : (
     <Navigate to="/login" state={{ from: location }} replace />
