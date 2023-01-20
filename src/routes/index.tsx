@@ -2,6 +2,7 @@ import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
+  Routes,
 } from "react-router-dom";
 import UsersPage from "../pages/users";
 import AdminLayout from "../layouts/admin";
@@ -15,22 +16,26 @@ import PosLayout from "../layouts/pos";
 import Products from "../pages/pos/products";
 import OpenBar from "../pages/pos/open-bar";
 import RequireAuth from "../components/require-auth";
+import NoAuthorized from "../pages/no-authorize";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/login" element={<Login />} />
-      <Route path="/admin" element={<AdminLayout />}>
-        <Route path="usuarios" element={<UsersPage />} />
-        <Route path="open-bar" element={<OpenBarPage />} />
-        <Route path="mesas-vip" element={<ViptablePages />} />
-        <Route path="tasas-de-cambio" element={<RateExchange />} />
-        <Route path="productos" element={<ConsumablePage />} />
-        <Route path="grupos-eventos" element={<GroupsEvents />} />
-      </Route>
-      <Route path="/punto-de-venta" element={<PosLayout />}>
-        <Route path="productos" element={<Products />}></Route>
-        <Route path="open-bar" element={<OpenBar />}></Route>
+      <Route path="/no-autorizado" element={<NoAuthorized />} />
+      <Route element={<RequireAuth roles={["camarero"]} />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="usuarios" element={<UsersPage />} />
+          <Route path="open-bar" element={<OpenBarPage />} />
+          <Route path="mesas-vip" element={<ViptablePages />} />
+          <Route path="tasas-de-cambio" element={<RateExchange />} />
+          <Route path="productos" element={<ConsumablePage />} />
+          <Route path="grupos-eventos" element={<GroupsEvents />} />
+        </Route>
+        <Route path="/punto-de-venta" element={<PosLayout />}>
+          <Route path="productos" element={<Products />}></Route>
+          <Route path="open-bar" element={<OpenBar />}></Route>
+        </Route>
       </Route>
     </Route>
   )
