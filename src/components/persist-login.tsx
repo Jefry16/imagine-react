@@ -13,19 +13,13 @@ export default function PersistLogin() {
       try {
         await refresh();
       } catch (error) {
-        console.log(error);
       } finally {
         setLoading(false);
       }
     };
 
     !auth?.accessToken ? verifyRefreshToken() : setLoading(false);
-  }, []);
-
-  useEffect(() => {
-    console.log(`loading ${loading}`);
-    console.log(`at ${auth?.accessToken}`);
-  }, [loading]);
+  }, [setLoading]);
 
   return <>{loading ? <p>loading...</p> : <Outlet />}</>;
 }

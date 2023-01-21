@@ -3,6 +3,7 @@ import { ExpandableConfig } from "antd/es/table/interface";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { axiosPrivate } from "../api/axios";
+import useHttpGet from "../hooks/use-http-get";
 
 export default function CustomTable(props: {
   columns: any;
@@ -10,23 +11,18 @@ export default function CustomTable(props: {
   url: string;
   expandable?: ExpandableConfig<any> | undefined;
 }) {
-  const { data, isLoading, refetch } = useQuery(
-    "",
-    () => axiosPrivate.get(props.url),
-    {
-      enabled: false,
-    }
-  );
+  const { isLoading, sendRequest } = useHttpGet();
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    refetch();
+    sendRequest({ url: props.url,onSuccess:(data:any)=> setData(data)});
   }, [props.refetch]);
 
   return (
     <Table
       rowKey={(row) => row.id}
       loading={isLoading}
-      dataSource={data?.data}
+      dataSource={data}
       columns={props.columns}
       rowSelection={{}}
       expandable={{ ...props.expandable }}

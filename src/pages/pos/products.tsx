@@ -12,13 +12,7 @@ export default function Products() {
         {JSON.stringify({ error, isLoading, status })}
       </p>
 
-      <button
-        onClick={() =>
-          sendRequest("consumables", (data: any) => console.log(data))
-        }
-      >
-        refresh
-      </button>
+      <button>refresh</button>
     </main>
   );
 }
