@@ -13,7 +13,7 @@ export default function Categories() {
   const [addCategory, setAddCategory] = useState(false);
   const [addSubCategory, setAddSubCategory] = useState(false);
   const [api, contextHolder] = notification.useNotification();
-  const [categoryId, setCategoryId] = useState("");
+  const [categoryId, setCategoryId] = useState();
 
   const newAdded = (what: string) => {
     setRefetch((prev) => !prev);
@@ -80,7 +80,7 @@ export default function Categories() {
         onClose={() => setAddSubCategory(false)}
       >
         <NewSubCategory
-          activeCategory={categoryId}
+        categoryId={categoryId}
           api={api}
           onClose={() => setAddSubCategory(false)}
           setRefetch={() => newAdded("sub-categoría")}
