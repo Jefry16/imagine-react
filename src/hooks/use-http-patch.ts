@@ -1,7 +1,8 @@
+import { AxiosError } from "axios";
 import { useState, useCallback } from "react";
 import useAxiosPrivate from "./use-axios-private";
 
-const useHttpGet = () => {
+const useHttpPatch = () => {
   const axiosPrivate = useAxiosPrivate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -10,13 +11,14 @@ const useHttpGet = () => {
   const sendRequest = useCallback(
     async (values: {
       url: string;
+      data: any;
       onSuccess?: (data: any) => void;
       onError?: (data: any) => void;
     }) => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axiosPrivate.get(values.url);
+        const response = await axiosPrivate.patch(values.url, values.data);
 
         setStatus(response.status);
         if (values.onSuccess) {
@@ -41,4 +43,4 @@ const useHttpGet = () => {
   };
 };
 
-export default useHttpGet;
+export default useHttpPatch;

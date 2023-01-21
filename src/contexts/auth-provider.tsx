@@ -6,7 +6,7 @@ type Auth = { username: string; accessToken: string; roles: string[] };
 
 export type IAuth = {
   auth: Auth;
-  setAuth: (value: Auth) => void;
+  setAuth: (value: Auth | null) => void;
 };
 
 export const AuthProvider = (props: { children: ReactNode }) => {
