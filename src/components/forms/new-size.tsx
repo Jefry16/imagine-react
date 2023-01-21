@@ -1,10 +1,12 @@
 import { Col, Row, Form, Button, Input } from "antd";
 import { NotificationInstance } from "antd/es/notification/interface";
 import { useState } from "react";
+import useHttpPost from "../../hooks/use-http-post";
 import cancelButtonStyles from "../../styles/components/cancel-button";
 import inputStyle from "../../styles/components/input";
 import labelStyle from "../../styles/components/label";
 import submitButtonStyle from "../../styles/components/submit-button";
+import useAxiosPrivate from "../../hooks/use-axios-private";
 
 const { Item } = Form;
 
@@ -13,11 +15,29 @@ export default function NewSize(props: {
   setRefetch: Function;
   api: NotificationInstance;
 }) {
-  const [brandSearch, setBrandSearch] = useState("qwertyuiop");
-  const [formData, setFormData] = useState({});
+  const axiosPrivate = useAxiosPrivate();
+  const [sizeSearch, setSizeSearch] = useState("qwertyuiop");
+  const { sendRequest: sendPost } = useHttpPost();
 
   return (
-    <Form onFinish={async () => {}}>
+    <Form
+      onFinish={async (values) => {
+        sendPost({
+          url: "sizes",
+          data: { name: values.name },
+          onSuccess: () => {
+            props.onClose();
+            props.setRefetch();
+          },
+          onError: () => {
+            props.onClose();
+            props.api.error({
+              message: "Algo salió mal. Intentelo más tarde.",
+            });
+          },
+        });
+      }}
+    >
       <Row>
         <Col span={24}>
           <Item
@@ -29,20 +49,21 @@ export default function NewSize(props: {
               { required: true, message: "Añada un nombre" },
               { max: 255, message: "El nombre es muy largo" },
               {
-                validator: () => {
-                  if (status === "success" && brandSearch.length > 0) {
-                    return Promise.reject();
+                validator: async () => {
+                  try {
+                    await axiosPrivate.get(`sizes?name=${sizeSearch}&exact=ok`);
+                    return Promise.reject(new Error("Este tamaño ya existe."));
+                  } catch (error) {
+                    return Promise.resolve();
                   }
-                  return Promise.resolve();
                 },
-                message: "El tamaño ya existe",
               },
             ]}
           >
             <Input
+              autoComplete="off"
               onChange={({ target }) => {
-                setBrandSearch(target.value);
-                setFormData((prev) => ({ ...prev, name: target.value }));
+                setSizeSearch(target.value);
               }}
               style={inputStyle}
             />
