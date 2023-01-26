@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router-dom";
 import Sidebar from "../components/sidebar";
-import styles from "../styles/sass/admin-layout.module.scss";
+import styles from "../styles/sass/layout/admin-layout.module.scss";
 export default function AdminLayout() {
   return (
     <div className={styles.admin}>

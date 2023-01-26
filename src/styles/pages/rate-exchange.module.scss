@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-left: 6rem;
+  max-width: 800px;
+}
+
+.buttonContainer {
+  max-width: 800px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4rem;
+}
+
+.lastUpdate {
+  max-width: 800px;
+  margin: 4rem 0;
+  p {
+    text-align: right;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
