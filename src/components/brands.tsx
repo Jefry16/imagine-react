@@ -1,10 +1,7 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, notification, Space } from "antd";
 import { useState } from "react";
-import { columns } from "../tables-config/columns/brands";
 import FormOverlay from "./form-overlay";
-import NewBrand from "./forms/new-brand";
-import CustomTable from "./table";
 
 export default function Brands() {
   const [api, contextHolder] = notification.useNotification();
@@ -29,19 +26,12 @@ export default function Brands() {
           </div>
         }
       />
-      <CustomTable url="brands" columns={columns} refetch={refetch} />
       <FormOverlay
         open={addBrand}
         title="Añadir marca"
         onClose={() => setAddBrand(false)}
       >
-        <NewBrand
-          api={api}
-          onClose={() => {
-            setAddBrand(false);
-          }}
-          setRefetch={newBrandAdded}
-        />
+       
       </FormOverlay>
     </>
   );

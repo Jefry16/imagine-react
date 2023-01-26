@@ -1,10 +1,7 @@
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, notification, Space } from "antd";
 import { useState } from "react";
-import { columns } from "../tables-config/columns/sizes";
 import FormOverlay from "./form-overlay";
-import NewSize from "./forms/new-size";
-import CustomTable from "./table";
 
 export default function Sizes() {
   const [refetch, setRefetch] = useState(false);
@@ -29,19 +26,7 @@ export default function Sizes() {
           </div>
         }
       />
-      <CustomTable url="sizes" columns={columns} refetch={refetch} />
-
-      <FormOverlay
-        open={addSize}
-        title="Añadir tamaño"
-        onClose={() => setAddSize(false)}
-      >
-        <NewSize
-          api={api}
-          onClose={() => setAddSize(false)}
-          setRefetch={newSizeAdded}
-        />
-      </FormOverlay>
+      
     </>
   );
 }

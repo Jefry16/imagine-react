@@ -25,8 +25,8 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />} />
       <Route path="/no-autorizado" element={<NoAuthorized />} />
      
-      <Route element={<PersistLogin />}>
-        <Route element={<RequireAuth roles={["camarero"]} />}>
+      {/* <Route element={<PersistLogin />}>
+        <Route element={<RequireAuth roles={["camarero"]} />}> */}
           <Route path="/admin" element={<AdminLayout />}>
             <Route path="usuarios" element={<UsersPage />} />
             <Route path="open-bar" element={<OpenBarPage />} />
@@ -39,9 +39,9 @@ const router = createBrowserRouter(
             <Route path="productos" element={<Products />}></Route>
             <Route path="open-bar" element={<OpenBar />}></Route>
           </Route>
-        </Route>
+        {/* </Route>
       </Route>
-    
+     */}
     </Route>
   )
 );
